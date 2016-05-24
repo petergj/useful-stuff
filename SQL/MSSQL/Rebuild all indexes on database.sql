@@ -6,7 +6,7 @@
 DECLARE @TableName VARCHAR(255)
 DECLARE @sql NVARCHAR(500)
 DECLARE @fillfactor INT
-SET @fillfactor = 80
+SET @fillfactor = 95
 DECLARE TableCursor CURSOR FOR
 
 SELECT OBJECT_SCHEMA_NAME([object_id])+'.['+name+']' AS TableName FROM sys.tables
