@@ -7,9 +7,9 @@ SELECT
     t.NAME AS TableName,
     s.Name AS SchemaName,
     p.rows AS RowCounts,
-    SUM(a.total_pages) * 8.0/1024 AS TotalSpaceMB, 
-    SUM(a.used_pages) * 8.0/1024 AS UsedSpaceMB, 
-    (SUM(a.total_pages) - SUM(a.used_pages)) * 8.0/1024 AS UnusedSpaceMB
+    Convert(int, SUM(a.total_pages) * 8.0/1024) AS TotalSpaceMB, 
+    Convert(int, SUM(a.used_pages) * 8.0/1024) AS UsedSpaceMB, 
+    Convert(int, (SUM(a.total_pages) - SUM(a.used_pages)) * 8.0/1024) AS UnusedSpaceMB
 FROM 
     sys.tables t
 INNER JOIN      
