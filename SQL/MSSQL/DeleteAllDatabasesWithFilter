@@ -1,0 +1,16 @@
+declare @strsql varchar(500)
+declare @curname sysname
+
+declare @databasesToIgnore varchar(max) = 'master,model,msdb,tempdb'
+	
+select @curname = name from sys.databases where name not in (SELECT * FROM STRING_SPLIT(@databasesToIgnore, ','))
+
+while( @@rowcount> 0)
+begin 
+	set @strsql ='ALTER DATABASE [' +@curname +'] SET OFFLINE WITH ROLLBACK IMMEDIATE'
+	exec (@strsql)
+	set @strsql ='drop database ['+@curname+']'
+	exec (@strsql)
+	print @strsql
+	select @curname = name from sys.databases where name not in (SELECT * FROM STRING_SPLIT(@databasesToIgnore, ','))
+end
